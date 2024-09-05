@@ -10,8 +10,8 @@ from torch.nn import functional as F
 from hierspeechpp_speechsynthesizer import (
     SynthesizerTrn, Wav2vec2
 )
-from ttv_v1.text import text_to_sequence
-from ttv_v1.t2w2v_transformer import SynthesizerTrn as Text2W2V
+# from ttv_v1.text import text_to_sequence
+# from ttv_v1.t2w2v_transformer import SynthesizerTrn as Text2W2V
 from speechsr24k.speechsr import SynthesizerTrn as SpeechSR24
 from speechsr48k.speechsr import SynthesizerTrn as SpeechSR48
 from denoiser.generator import MPNet
@@ -123,6 +123,7 @@ def VC(a, hierspeech):
     # If you have a memory issue during denosing the prompt, try to denoise the prompt with cpu before TTS 
     # We will have a plan to replace a memory-efficient denoiser 
     if a.denoise_ratio == 0:
+        print("Not to denoise!")
         target_audio = torch.cat([target_audio.cuda(), target_audio.cuda()], dim=0)
     else:
         with torch.no_grad():
